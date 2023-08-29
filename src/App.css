@@ -24,23 +24,22 @@
   color: white;
 }
 
-div{
+div {
   box-sizing: border-box;
 }
 
-.list{
+.list {
   padding-left: 20px;
   text-align: left;
   border-bottom: 1px solid grey;
 }
 
-.black-nav{
+.black-nav {
   display: flex;
   background: black;
   width: 100%;
   color: white;
-  padding-left:20px;
-  height: 5vh;
+  padding-left: 20px;
 }
 
 .App-link {
