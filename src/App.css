@@ -24,6 +24,15 @@
   color: white;
 }
 
+.black-nav{
+  display: flex;
+  background: black;
+  width: 100%;
+  color: white;
+  padding-left:20px;
+  height: 5vh;
+}
+
 .App-link {
   color: #61dafb;
 }
