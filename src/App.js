@@ -6,10 +6,11 @@ import { useState } from "react";
 
 function App() {
   let postName = ["여자코트 추천", "강남 우동맛집", "파이썬 독학"];
-  let [title, mt] = useState(postName);
+  let [title, setTitle] = useState(postName);
   let [goods, mg] = useState([0, 0, 0]);
   let [modal, setModal] = useState(false);
   let [cnt, setCnt] = useState(0);
+  let [inputValue, changeIv] = useState("");
 
   return (
     <div className="App">
@@ -28,7 +29,8 @@ function App() {
               }}>
               {title}
               <span
-                onClick={() => {
+                onClick={(e) => {
+                  e.stopPropagation(); // 상위 계층까지의 이벤트 차탄
                   let copy = [...goods];
                   copy[i] = copy[i] + 1;
                   mg(copy);
@@ -36,14 +38,41 @@ function App() {
                 👍
               </span>
               {goods[i]}
-              {/* onClick 은 이벤트 핸들러이다. */}
             </h4>
             <p>2월 17발행</p>
+            <button
+              onClick={() => {
+                let copy = [...title];
+                copy.splice(i, 1);
+                setTitle(copy);
+              }}>
+              삭제
+            </button>
           </div>
         );
       })}
 
-      {modal === true ? <Modal cnt={cnt} title={title} mt={mt} /> : null}
+      <div>
+        <input
+          onChange={(e) => {
+            changeIv(e.target.value); //비동기 처리로 인해 늦게 나온느것처럼 보임...
+            console.log(inputValue);
+          }}
+        />
+        <button
+          onClick={() => {
+            let copy = [...title];
+            copy.unshift(inputValue);
+            setTitle(copy);
+          }}>
+          {" "}
+          button
+        </button>
+      </div>
+
+      {modal === true ? (
+        <Modal cnt={cnt} title={title} setTitle={setTitle} />
+      ) : null}
 
       {/* document.querySelector('h4').innerHTML = post; 데이터 바인딩 */}
     </div>
@@ -60,7 +89,7 @@ function Modal(props) {
         onClick={() => {
           let copy = [...props.title];
           copy[0] = "남자코트추천";
-          props.mt(copy);
+          props.setTitle(copy);
         }}>
         글 수정
       </button>
